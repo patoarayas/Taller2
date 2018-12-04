@@ -7,8 +7,7 @@
 
 using namespace std;
 
-Matriz::Matriz() {
-}
+Matriz::Matriz() = default;
 
 Matriz::Matriz(int filas, int columnas) {
     this->vectorFilas = new Nodo [filas];
@@ -28,8 +27,8 @@ Matriz::Matriz(int filas, int columnas) {
 }
 
 bool Matriz::addNode(char valor, int fila, int columna) {
-    Nodo* current = new Nodo();
-    current = &vectorFilas[fila-1];
+    Nodo* current = &vectorFilas[fila-1];
+
     while(current->getNext()!=&vectorFilas[fila-1]&&current->getNext()->getColumna()>columna){
         current = current->getNext();
     }
@@ -60,14 +59,14 @@ bool Matriz::addNode(char valor, int fila, int columna) {
     }else{
         return false;
     }
-    //TODO: Revisar acá
+
     return false;
 }
-//cout << "error" << endl;
+
 
 bool Matriz::deleteNode(int fila, int columna) {
-    Nodo* current = new Nodo();
-    current = &vectorFilas[fila-1];
+    Nodo* current = &vectorFilas[fila-1];
+
     while(current->getNext()!=&vectorFilas[fila-1]&&current->getNext()->getColumna()>columna){
         current = current->getNext();
     }
@@ -100,8 +99,8 @@ bool Matriz::deleteNode(int fila, int columna) {
 }
 
 Nodo *Matriz::getNode(int fila, int columna) {
-    Nodo* current = new Nodo('0');
-    current = &vectorFilas[fila-1];
+    Nodo* current = &vectorFilas[fila-1];
+
     while(current->getNext()!=&vectorFilas[fila-1]&&current->getNext()->getColumna()>columna){
         current = current->getNext();
     }
@@ -109,18 +108,18 @@ Nodo *Matriz::getNode(int fila, int columna) {
         return current->getNext();
     }else if(current->getNext()->getColumna()<columna) {
         //No existe  nodo en esta posición
-        return NULL;
+        return nullptr;
     }else {
-        return NULL;
+        return nullptr;
     }
 }
 
 bool Matriz::deleteNode(char valor) {
 
     bool verify = false;
-    Nodo* node = new Nodo('c');
+    Nodo* node;
     for(int i=0 ; i<filas ; i++){
-        node=&vectorFilas[i];
+
         for(node = &vectorFilas[i] ; node->getNext() != &vectorFilas[i] ; node = node->getNext()) {
             if (node->getNext()->getValue() == valor) {
                 deleteNode(node->getNext()->getFila(), node->getNext()->getColumna());
@@ -128,31 +127,27 @@ bool Matriz::deleteNode(char valor) {
             }
         }
     }
-    //TODO: return verify
-    if(verify){
-        return true;
-    }else{
-        return false;
-    }
-    //Hacer recorrido sin get POS();
+
+    return verify;
+
 }
 
 Nodo *Matriz::getNode(char valor) {
-    Nodo* node = new Nodo('c');
+    Nodo* node;
     for(int i=0 ; i<filas ; i++){
-        node=&vectorFilas[i];
+
         for(node = &vectorFilas[i] ; node->getNext() != &vectorFilas[i] ; node = node->getNext()) {
             if (node->getNext()->getValue() == valor) {
                 return node->getNext();
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 Nodo *Matriz::popNode(int fila, int columna) {
-    Nodo* current = new Nodo();
-    current = &vectorFilas[fila-1];
+    Nodo* current = &vectorFilas[fila-1];
+
     while(current->getNext()!=&vectorFilas[fila-1]&&current->getNext()->getColumna()>columna){
         current = current->getNext();
     }
@@ -171,15 +166,15 @@ Nodo *Matriz::popNode(int fila, int columna) {
             delete current;
             return aux;
         }else if(current->getUp()->getFila()<fila) {
-            return NULL;
+            return nullptr;
         }else{
-            return NULL;
+            return nullptr;
         }
     }else if(current->getNext()->getColumna()<columna) {
         //No existe alg˙n nodo en esta posiciÛn
-        return NULL;
+        return nullptr;
     }else{
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -202,14 +197,14 @@ void Matriz::printMatriz() {
         for(int j=1 ; j<columnas+1; j++){
             if(j==columnas){
                 cout << "   ";
-                if(getNode(i,j)== NULL){
+                if(getNode(i,j)== nullptr){
                     cout << "0" << endl;
                 }else{
                     cout << getNode(i,j)->getValue() << endl;
                 }
             }else{
                 cout << "   ";
-                if(getNode(i,j)== NULL){
+                if(getNode(i,j)== nullptr){
                     cout << "0";
                 }else{
                     cout << getNode(i,j)->getValue();
