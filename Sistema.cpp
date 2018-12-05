@@ -137,6 +137,85 @@ void Sistema::cargarNivel(Nivel nivel) {
 
 void Sistema::menu() {
 
+    int command = 0;
+    while(command !=3){
+        cout << "Menu:" << endl;
+        cout << "[1] Iniciar Partida" << endl;
+        cout << "[2] Estadisticas" << endl;
+        cout << "[3] Salir" << endl;
+        cout << "Elija una opción."<<endl;
+        cin >> command;
+        switch(command){
+            case 1:
+                int command2=0;
+                while(command2 != 4){
+                    cout << "---------------------" << endl;
+                    cout << "[1] Dificultad Facil" << endl;
+                    cout << "[2] Dificultad Intermedia" << endl;
+                    cout << "[3] Dificultad Dificil" << endl;
+                    cout << "[4] Volver al menu principal" << endl;
+                    cout << "Elija una opción."<<endl;
+                    cin >> command2;
+                    switch(command2){
+                        case 1:
+                            //Juego Facil
+                            break;
+                        case 2:
+                            //Juego Intermedio
+                            break;
+                        case 3:
+                            //Juego Dificil
+                            break;
+                        case 4:
+                            //Volver al menu principal
+                            break;
+                        default:
+                            cout << "Ingrese una opción válida" << endl;
+                            break;
+                    }
+                }
+                break;
+            case 2:
+                int command3=0;
+                while(command3 != 5){
+                    cout << "------------------------------------------" << endl;
+                    cout << "[1] Cantidad de victorias modo facil" << endl;
+                    cout << "[2] Cantidad de victorias modo intermedio" << endl;
+                    cout << "[3] Cantidad de victorias modo dificil" << endl;
+                    cout << "[4] Cantidad de partidas jugadas" << endl;
+                    cout << "[5] Volver al menu principal" << endl;
+                    cout << "Elija una opción."<<endl;
+                    cin >> command3;
+                    switch(command3){
+                        case 1:
+                            //Cantidad de victorias modo facil
+                            break;
+                        case 2:
+                            //Cantidad de victorias modo intermedio
+                            break;
+                        case 3:
+                            //Cantidad de victorias modo dificil
+                            break;
+                        case 4:
+                            //Cantidad de partidas jugadas
+                            break;
+                        case 5:
+                            //Volver al menu principal
+                            break;
+                        default:
+                            cout << "Ingrese una opción válida" << endl;
+                            break;
+                    }
+                }
+                break;
+            case 3:
+                //Crear estadisticas.txt y salir
+                break;
+            default:
+                cout << "Ingrese una opción válida" << endl;
+                break;
+        }
+    }
     cargarNivel(niveles[3]);
     matrizJuego.printMatriz();
     matrizJugador.printMatriz();
