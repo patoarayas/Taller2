@@ -75,7 +75,7 @@ public:
     Nodo* popNode(int fila, int columna);
 
     /**
-     * despliega la matriz por consola
+     * Despliega la matriz por consola
      */
     void printMatriz();
 

@@ -215,6 +215,7 @@ void Matriz::printMatriz() {
 }
 
 Matriz::~Matriz() {
-    delete [] vectorFilas;
-    delete [] vectorColumnas;
+    //TODO: Revisar destructor
+    //delete [] vectorFilas;
+    //delete [] vectorColumnas;
 }

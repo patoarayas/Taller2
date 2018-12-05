@@ -1,0 +1,13 @@
+Campo001.txt,facil
+Campo002.txt,facil
+Campo003.txt,facil
+Campo004.txt,facil
+Campo005.txt,facil
+Campo006.txt,medio
+Campo007.txt,medio
+Campo008.txt,medio
+Campo009.txt,medio
+Campo010.txt,dificil
+Campo011.txt,dificil
+Campo012.txt,dificil
+Campo013.txt,Imposible

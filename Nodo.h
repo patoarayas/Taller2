@@ -15,6 +15,8 @@ private:
     Nodo* next;
     Nodo* up;
 
+
+
 public:
     Nodo();
     Nodo(char value);
