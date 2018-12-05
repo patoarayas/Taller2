@@ -4,7 +4,9 @@
 
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 #include "Sistema.h"
+
 
 Sistema::Sistema() = default;
 
@@ -137,7 +139,14 @@ void Sistema::cargarNivel(Nivel nivel) {
 
 void Sistema::menu() {
 
-    int command = 0;
+    //ACA van lienas de codigo que estoy usando para testear otras cosas
+    cargarNivel(niveles[3]);
+    matrizJuego.printMatriz();
+    matrizJugador.printMatriz();
+
+
+    int command=0;
+
     while(command !=3){
         cout << "Menu:" << endl;
         cout << "[1] Iniciar Partida" << endl;
@@ -145,26 +154,27 @@ void Sistema::menu() {
         cout << "[3] Salir" << endl;
         cout << "Elija una opción."<<endl;
         cin >> command;
+
         switch(command){
-            case 1:
-                int command2=0;
-                while(command2 != 4){
+            case 1: {
+                int command2 = 0;
+                while (command2 != 4) {
                     cout << "---------------------" << endl;
                     cout << "[1] Dificultad Facil" << endl;
                     cout << "[2] Dificultad Intermedia" << endl;
                     cout << "[3] Dificultad Dificil" << endl;
                     cout << "[4] Volver al menu principal" << endl;
-                    cout << "Elija una opción."<<endl;
+                    cout << "Elija una opción." << endl;
                     cin >> command2;
-                    switch(command2){
+                    switch (command2) {
                         case 1:
-                            //Juego Facil
+                            cargarNivel(nivelRandom("facil"));
                             break;
                         case 2:
-                            //Juego Intermedio
+                            cargarNivel(nivelRandom("medio"));
                             break;
                         case 3:
-                            //Juego Dificil
+                            cargarNivel(nivelRandom("dificil"));
                             break;
                         case 4:
                             //Volver al menu principal
@@ -175,18 +185,19 @@ void Sistema::menu() {
                     }
                 }
                 break;
-            case 2:
-                int command3=0;
-                while(command3 != 5){
+            }
+            case 2: {
+                int command3 = 0;
+                while (command3 != 5) {
                     cout << "------------------------------------------" << endl;
                     cout << "[1] Cantidad de victorias modo facil" << endl;
                     cout << "[2] Cantidad de victorias modo intermedio" << endl;
                     cout << "[3] Cantidad de victorias modo dificil" << endl;
                     cout << "[4] Cantidad de partidas jugadas" << endl;
                     cout << "[5] Volver al menu principal" << endl;
-                    cout << "Elija una opción."<<endl;
+                    cout << "Elija una opción." << endl;
                     cin >> command3;
-                    switch(command3){
+                    switch (command3) {
                         case 1:
                             //Cantidad de victorias modo facil
                             break;
@@ -207,7 +218,9 @@ void Sistema::menu() {
                             break;
                     }
                 }
+            }
                 break;
+
             case 3:
                 //Crear estadisticas.txt y salir
                 break;
@@ -216,14 +229,21 @@ void Sistema::menu() {
                 break;
         }
     }
-    cargarNivel(niveles[3]);
-    matrizJuego.printMatriz();
-    matrizJugador.printMatriz();
+
 }
 
 Nivel Sistema::nivelRandom(string dificultad) {
 
-    return {"NULL","NULL"};
+    while(true) {
+        int random = 0;
+        random = rand()  % cantNiveles + 1;
+        if(niveles[random].dificultad == dificultad){
+            return niveles[random];
+        }
+
+    }
+
+
 }
 
 Sistema::~Sistema() = default;

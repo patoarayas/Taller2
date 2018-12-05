@@ -63,9 +63,9 @@ public:
      */
     void cargarNivel(Nivel nivel);
 
-    //TODO: Falta implemetar el metodo nivelRandom()
+
     /**
-     * En base a una dificultad dada, se selecciona un nivel al azar acorde con la misma
+     * En base a una dificultad dada, se selecciona un nivel al azar acorde con la misma y lo retorna.
      * @param dificultad : Dificultad deseada
      * @return un nivel de juego
      */
