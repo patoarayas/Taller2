@@ -216,6 +216,7 @@ void Sistema::menu() {
                 break;
         }
     }
+
     cargarNivel(niveles[3]);
     matrizJuego.printMatriz();
     matrizJugador.printMatriz();
