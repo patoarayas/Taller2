@@ -31,6 +31,7 @@ struct Comando{
 
 class Sistema {
 
+
 private:
     //Matriz que muestra los datos al jugador
     Matriz matrizJugador;
@@ -40,8 +41,14 @@ private:
     Nivel* niveles;
     //Cantidad de niveles disponibles
     int cantNiveles;
-    //Cantidad de partidas jugadas
+
+    //Estadisticas:
+    //Cantidad de partidas jugadas y victorias segun nivel
     int partidasJugadas=0;
+    int victoriasFacil = 0;
+    int victoriasMedio = 0;
+    int victoriasDificil = 0;
+
 
 
 
@@ -58,7 +65,7 @@ public:
      */
     ~Sistema();
 
-    //TODO: Falta implementar menu
+
     /**
      * Despliega el menu por pantalla
      */
@@ -93,8 +100,24 @@ public:
      * @return : estructura Comando si es valido, retorna un comando {!,0,0} si no;
      */
     Comando verificarAccion(string in);
-
+    /**
+     * Destapa una celda basado en una posicion y las de alrededor recursivamente
+     * se detiene al encontrar una mina o un numero (las minas no la destapa), llama a destaparCeldaRec()
+     * @param fila
+     * @param columna
+     * @return booleano si el destape fue exitoso
+     */
     bool destaparCelda(int fila, int columna);
+
+    /**
+     * Destapa una celda basado en una posicion y las de alrededor recursivamente
+     * se detiene al encontrar una mina o un numero (las minas no la destapa)
+     * @param fila
+     * @param columna
+     */
+    void destaparCeldaRec(int fila, int columna);
+
+    void generarEstadisticas();
 
 };
 

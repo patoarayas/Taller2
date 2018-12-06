@@ -321,6 +321,7 @@ void Sistema::partida(string dificultad) {
     //TODO: Verificar esto despues
     if(matrizJugador.getNode('H') == nullptr){
         nivptr->victorias++;
+        cout << "Victoria" << endl;
     }
     //Si no, se termino el juego debido a la explosion de una bomba
 
@@ -420,13 +421,78 @@ bool Sistema::destaparCelda(int fila, int columna) {
         }
     }
 
-
-    //No exitia nodo, casilla es 0, se debe destapar
-    //TODO:Implementar metodo
-
-    cout<<"Aqui deberian destaparse las no 0"<<endl;
+    //Destapar celda y revisar las de alrededor
+    destaparCeldaRec(fila,columna);
 
     return false;
+}
+
+void Sistema::destaparCeldaRec(int fila, int columna) {
+
+
+
+    if(fila <= 0){
+        return;
+    }
+    else if(fila > matrizJuego.getFilas()-1){
+        return;
+    }
+    else if (columna <= 0){
+        return;
+    }
+    else if(columna > matrizJuego.getColumnas()-1){
+        return;
+    }
+    else if(matrizJugador.getNode(fila,columna)->getValue() != 'H'){
+        return;
+    }
+
+
+    if(matrizJuego.getNode(fila,columna) != nullptr){
+
+        if (matrizJuego.getNode(fila, columna)->getValue() == 'X') {
+            //Se encontro una mina, no destapar
+            return;
+        }
+        else if (matrizJuego.getNode(fila, columna)->getValue() != 'X') {
+            //Se encontro un numero, actualizar matriz del jugador, destapar
+            matrizJugador.deleteNode(fila, columna);
+            matrizJugador.addNode(matrizJuego.getNode(fila, columna)->getValue(), fila, columna);
+            return;
+        }
+    }
+    else{
+
+        matrizJugador.deleteNode(fila,columna);
+        matrizJugador.addNode('0',fila,columna);
+
+
+        destaparCeldaRec(fila-1,columna-1);
+        destaparCeldaRec(fila-1,columna);
+        destaparCeldaRec(fila-1,columna+1);
+        destaparCeldaRec(fila,columna-1);
+        destaparCeldaRec(fila,columna+1);
+        destaparCeldaRec(fila+1,columna-1);
+        destaparCeldaRec(fila+1,columna);
+        destaparCeldaRec(fila+1,columna+1);
+    }
+
+}
+
+void Sistema::generarEstadisticas() {
+
+    //Abrir archivo estadistica
+
+    fstream archivo;
+    archivo.open("../archivos/estadisticas.txt");
+
+    if(archivo.is_open()){
+        //Cargar datos en las variables
+    }
+    else{
+        //Si no existe archivo, calcular estadisticas y crearlo
+    }
+
 
 }
 
