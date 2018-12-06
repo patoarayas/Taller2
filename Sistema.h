@@ -17,6 +17,16 @@ using namespace std;
 struct Nivel{
     string nombre;
     string dificultad;
+    int victorias = 0;
+};
+/**
+ * Struct que guarda los datos de un comando
+ */
+struct Comando{
+    char accion;
+    int fila;
+    int columna;
+
 };
 
 class Sistema {
@@ -30,6 +40,8 @@ private:
     Nivel* niveles;
     //Cantidad de niveles disponibles
     int cantNiveles;
+    //Cantidad de partidas jugadas
+    int partidasJugadas=0;
 
 
 
@@ -63,14 +75,26 @@ public:
      */
     void cargarNivel(Nivel nivel);
 
-    //TODO: Falta implemetar el metodo nivelRandom()
+
     /**
-     * En base a una dificultad dada, se selecciona un nivel al azar acorde con la misma
+     * En base a una dificultad dada, se selecciona un nivel al azar acorde con la misma y lo retorna.
      * @param dificultad : Dificultad deseada
      * @return un nivel de juego
      */
-    Nivel nivelRandom(string dificultad);
+    Nivel* nivelRandom(string dificultad);
 
+    /**
+     * Se encarga de la logica de la partida
+     */
+    void partida(string dificultad);
+    /**
+     * Retorna si el string entregado es una accion valida
+     * @param in : el string a verificar
+     * @return : estructura Comando si es valido, retorna un comando {!,0,0} si no;
+     */
+    Comando verificarAccion(string in);
+
+    bool destaparCelda(int fila, int columna);
 
 };
 

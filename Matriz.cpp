@@ -219,3 +219,11 @@ Matriz::~Matriz() {
     //delete [] vectorFilas;
     //delete [] vectorColumnas;
 }
+
+int Matriz::getFilas() {
+    return this->filas;
+}
+
+int Matriz::getColumnas() {
+    return this->columnas;
+}
