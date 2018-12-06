@@ -17,6 +17,7 @@ using namespace std;
 struct Nivel{
     string nombre;
     string dificultad;
+    int victorias = 0;
 };
 /**
  * Struct que guarda los datos de un comando
@@ -39,6 +40,8 @@ private:
     Nivel* niveles;
     //Cantidad de niveles disponibles
     int cantNiveles;
+    //Cantidad de partidas jugadas
+    int partidasJugadas=0;
 
 
 
@@ -78,12 +81,12 @@ public:
      * @param dificultad : Dificultad deseada
      * @return un nivel de juego
      */
-    Nivel nivelRandom(string dificultad);
+    Nivel* nivelRandom(string dificultad);
 
     /**
      * Se encarga de la logica de la partida
      */
-    void partida();
+    void partida(string dificultad);
     /**
      * Retorna si el string entregado es una accion valida
      * @param in : el string a verificar

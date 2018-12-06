@@ -163,14 +163,16 @@ void Sistema::menu() {
                     cin >> command2;
                     switch (command2) {
                         case 1:
-                            cargarNivel(nivelRandom("facil"));
-                            partida();
+
+                            partida("facil");
                             break;
                         case 2:
-                            cargarNivel(nivelRandom("medio"));
+
+                            partida("medio");
                             break;
                         case 3:
-                            cargarNivel(nivelRandom("dificil"));
+
+                            partida("dificil");
                             break;
                         case 4:
                             //Volver al menu principal
@@ -228,7 +230,7 @@ void Sistema::menu() {
 
 }
 
-Nivel Sistema::nivelRandom(string dificultad) {
+Nivel* Sistema::nivelRandom(string dificultad) {
     //TODO: Alogoritmo no es aleatorio, usa siempre la misma semilla
     while(true) {
         int random = 0;
@@ -236,7 +238,7 @@ Nivel Sistema::nivelRandom(string dificultad) {
         if(niveles[random].dificultad == dificultad){
             //TODO: eliminar esta linea despues
             cout<<niveles[random].nombre<<endl;
-            return niveles[random];
+            return &niveles[random];
         }
 
     }
@@ -244,9 +246,19 @@ Nivel Sistema::nivelRandom(string dificultad) {
 
 }
 
-void Sistema::partida() {
+void Sistema::partida(string dificultad) {
+
     //Este metodo debe encargse de toda la logica de la partida
-    //Supone que el nivel ya fue cargado
+
+    //Se aumenta en uno el contador de partidas
+    partidasJugadas++;
+
+    //Se carga el nivel
+    Nivel *nivptr = nivelRandom(dificultad);
+    cargarNivel(*nivptr);
+
+
+    //Se presentan las reglas
     cout << "Bienvenido a Buscaminas"<<endl;
     cout << "Ingrese sus coordenadas siguiendo el siguiente esquema"<< endl;
     cout << "Primero ingrese la letra de la accion a realizar"<< endl;
@@ -281,12 +293,12 @@ void Sistema::partida() {
         //Accion no valida, se repite el ciclo
     }
 
-
-
-
-
-
-
+    //Se termino el juego, si no quedan casillas descubiertas, significa que se gano la partida
+    //TODO: Verificar esto despues
+    if(matrizJugador.getNode('H') == nullptr){
+        nivptr->victorias++;
+    }
+    //Si no, se termino el juego debido a la explosion de una bomba
 
 }
 
