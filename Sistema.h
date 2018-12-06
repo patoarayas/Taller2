@@ -18,6 +18,15 @@ struct Nivel{
     string nombre;
     string dificultad;
 };
+/**
+ * Struct que guarda los datos de un comando
+ */
+struct Comando{
+    char accion;
+    int fila;
+    int columna;
+
+};
 
 class Sistema {
 
@@ -71,6 +80,18 @@ public:
      */
     Nivel nivelRandom(string dificultad);
 
+    /**
+     * Se encarga de la logica de la partida
+     */
+    void partida();
+    /**
+     * Retorna si el string entregado es una accion valida
+     * @param in : el string a verificar
+     * @return : estructura Comando si es valido, retorna un comando {!,0,0} si no;
+     */
+    Comando verificarAccion(string in);
+
+    bool destaparCelda(int fila, int columna);
 
 };
 

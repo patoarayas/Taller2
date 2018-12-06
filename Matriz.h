@@ -79,6 +79,8 @@ public:
      */
     void printMatriz();
 
+    int getFilas();
+    int getColumnas();
     /**
      * Destructor
      */
