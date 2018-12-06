@@ -195,17 +195,41 @@ void Sistema::menu() {
                     cout << "[5] Volver al menu principal" << endl;
                     cout << "Elija una opción." << endl;
                     cin >> command3;
+                    int cant = 0;
                     switch (command3) {
                         case 1:
+                            for(int i=0 ; i<cantNiveles ; i++){
+                               if(niveles[i].dificultad.compare("facil")==0){
+                                   cant++;
+                               }
+                            }
+                            cout << "Cantidad de victorias modo facil:  " << cant;
+                            cout << "" << endl;
                             //Cantidad de victorias modo facil
                             break;
                         case 2:
+                            for(int i=0 ; i<cantNiveles ; i++){
+                                if(niveles[i].dificultad.compare("intermedio")==0){
+                                    cant++;
+                                }
+                            }
+                            cout << "Cantidad de victorias modo intermedio:  " << cant;
+                            cout << "" << endl;
                             //Cantidad de victorias modo intermedio
                             break;
                         case 3:
+                            for(int i=0 ; i<cantNiveles ; i++){
+                                if(niveles[i].dificultad.compare("dificil")==0){
+                                    cant++;
+                                }
+                            }
+                            cout << "Cantidad de victorias modo dificil:  " << cant;
+                            cout << "" << endl;
                             //Cantidad de victorias modo dificil
                             break;
                         case 4:
+                            cout << "Cantidad de partidas jugadas:  " << this->partidasJugadas;
+                            cout << "" << endl;
                             //Cantidad de partidas jugadas
                             break;
                         case 5:
