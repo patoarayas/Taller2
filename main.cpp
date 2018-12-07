@@ -8,12 +8,8 @@ using namespace std;
 int main() {
 
     Sistema sistema;
-    sistema.cargarNivelesDisponibles();
     sistema.menu();
 
-
     return 0;
-
-
 
 }

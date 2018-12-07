@@ -4,8 +4,9 @@
 
 #include <fstream>
 #include <sstream>
-#include <cstdlib>
+#include <random>
 #include "Sistema.h"
+#include <time.h>
 
 
 Sistema::Sistema() = default;
@@ -140,6 +141,8 @@ void Sistema::cargarNivel(Nivel nivel) {
 
 void Sistema::menu() {
 
+    cargarNivelesDisponibles();
+
     int command=0;
 
     while(command !=3){
@@ -195,42 +198,46 @@ void Sistema::menu() {
                     cout << "[5] Volver al menu principal" << endl;
                     cout << "Elija una opción." << endl;
                     cin >> command3;
-                    int cant = 0;
+
                     switch (command3) {
                         case 1:
+                            //Estadistica nivel facil
                             for(int i=0 ; i<cantNiveles ; i++){
-                               if(niveles[i].dificultad.compare("facil")==0){
-                                   cant++;
+                               if(niveles[i].dificultad == "facil"){
+                                   victoriasFacil += niveles[i].victorias;
                                }
                             }
-                            cout << "Cantidad de victorias modo facil:  " << cant;
+                            cout << "Cantidad de victorias modo facil:  " << victoriasFacil;
                             cout << "" << endl;
                             //Cantidad de victorias modo facil
                             break;
                         case 2:
+                            //Estadistica nivel medio
                             for(int i=0 ; i<cantNiveles ; i++){
-                                if(niveles[i].dificultad.compare("intermedio")==0){
-                                    cant++;
+                                if(niveles[i].dificultad == "medio"){
+                                    victoriasMedio += niveles[i].victorias;
                                 }
                             }
-                            cout << "Cantidad de victorias modo intermedio:  " << cant;
+                            cout << "Cantidad de victorias modo intermedio:  " << victoriasMedio;
                             cout << "" << endl;
-                            //Cantidad de victorias modo intermedio
+
                             break;
                         case 3:
+                            //Estadisticas nivel dificil
                             for(int i=0 ; i<cantNiveles ; i++){
-                                if(niveles[i].dificultad.compare("dificil")==0){
-                                    cant++;
+                                if(niveles[i].dificultad == "dificil"){
+                                    victoriasDificil += niveles[i].victorias;
                                 }
                             }
-                            cout << "Cantidad de victorias modo dificil:  " << cant;
+                            cout << "Cantidad de victorias modo dificil:  " << victoriasDificil;
                             cout << "" << endl;
-                            //Cantidad de victorias modo dificil
+
                             break;
                         case 4:
-                            cout << "Cantidad de partidas jugadas:  " << this->partidasJugadas;
+                            //Estadisticas partidas jugadas
+                            cout << "Cantidad de partidas jugadas:  " << partidasJugadas;
                             cout << "" << endl;
-                            //Cantidad de partidas jugadas
+
                             break;
                         case 5:
                             //Volver al menu principal
@@ -245,6 +252,7 @@ void Sistema::menu() {
 
             case 3:
                 //Crear estadisticas.txt y salir
+                generarEstadisticas();
                 break;
             default:
                 cout << "Ingrese una opción válida" << endl;
@@ -255,13 +263,19 @@ void Sistema::menu() {
 }
 
 Nivel* Sistema::nivelRandom(string dificultad) {
-    //TODO: Alogoritmo no es aleatorio, usa siempre la misma semilla
+
+
+    mt19937 rng;
+    rng.seed(random_device()());
+    uniform_int_distribution<std::mt19937::result_type> rand(1,cantNiveles);
+
     while(true) {
         int random = 0;
-        random = rand()  % cantNiveles + 1;
+
+        random = rand(rng);
+
         if(niveles[random].dificultad == dificultad){
-            //TODO: eliminar esta linea despues
-            cout<<niveles[random].nombre<<endl;
+
             return &niveles[random];
         }
 
@@ -272,7 +286,7 @@ Nivel* Sistema::nivelRandom(string dificultad) {
 
 void Sistema::partida(string dificultad) {
 
-    //Este metodo debe encargse de toda la logica de la partida
+    //Este metodo debe encargarse de toda la logica de la partida
 
     //Se aumenta en uno el contador de partidas
     partidasJugadas++;
@@ -318,7 +332,7 @@ void Sistema::partida(string dificultad) {
     }
 
     //Se termino el juego, si no quedan casillas descubiertas, significa que se gano la partida
-    //TODO: Verificar esto despues
+
     if(matrizJugador.getNode('H') == nullptr){
         nivptr->victorias++;
         cout << "Victoria" << endl;
@@ -481,17 +495,33 @@ void Sistema::destaparCeldaRec(int fila, int columna) {
 
 void Sistema::generarEstadisticas() {
 
-    //Abrir archivo estadistica
 
-    fstream archivo;
-    archivo.open("../archivos/estadisticas.txt");
+    victoriasFacil = 0;
+    victoriasMedio = 0;
+    victoriasDificil = 0;
 
-    if(archivo.is_open()){
-        //Cargar datos en las variables
+    for(int i=0 ; i<cantNiveles ; i++){
+        if(niveles[i].dificultad == "facil"){
+            victoriasFacil += niveles[i].victorias;
+        }
+        else if(niveles[i].dificultad == "medio"){
+            victoriasMedio += niveles[i].victorias;
+        }
+        if(niveles[i].dificultad == "dificil"){
+            victoriasDificil += niveles[i].victorias;
+        }
+
+
     }
-    else{
-        //Si no existe archivo, calcular estadisticas y crearlo
-    }
+
+    ofstream archivo;
+    archivo.open("../archivos/estadisticas.txt",ios::trunc);
+    archivo<<"Cantidad de partidas jugadas:" << partidasJugadas<<endl;
+    archivo<<"Victorias nivel facil:" << victoriasFacil<<endl;
+    archivo<<"Victorias nivel intermedio:" << victoriasMedio<<endl;
+    archivo<<"Victorias nivel dificil:" << victoriasDificil<<endl;
+
+    archivo.close();
 
 
 }

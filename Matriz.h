@@ -67,10 +67,10 @@ public:
     Nodo* getNode(char valor);
 
     /***
-     *
+     * Elimina y retorna un nodo dada su posicion
      * @param fila
      * @param columna
-     * @return
+     * @return el nodo eliminado
      */
     Nodo* popNode(int fila, int columna);
 
