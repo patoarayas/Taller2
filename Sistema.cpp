@@ -7,6 +7,8 @@
 #include <random>
 #include "Sistema.h"
 #include <time.h>
+#include <stdlib.h>
+
 
 
 Sistema::Sistema() = default;
@@ -153,6 +155,7 @@ void Sistema::menu() {
         cout << "Elija una opción."<<endl;
         cin >> command;
 
+        system("cls");
         switch(command){
             case 1: {
                 int command2 = 0;
@@ -164,6 +167,7 @@ void Sistema::menu() {
                     cout << "[4] Volver al menu principal" << endl;
                     cout << "Elija una opción." << endl;
                     cin >> command2;
+                    system("cls");
                     switch (command2) {
                         case 1:
 
@@ -198,6 +202,7 @@ void Sistema::menu() {
                     cout << "[5] Volver al menu principal" << endl;
                     cout << "Elija una opción." << endl;
                     cin >> command3;
+                    system("cls");
 
                     switch (command3) {
                         case 1:
@@ -253,6 +258,7 @@ void Sistema::menu() {
             case 3:
                 //Crear estadisticas.txt y salir
                 generarEstadisticas();
+                system("cls");
                 break;
             default:
                 cout << "Ingrese una opción válida" << endl;
@@ -313,6 +319,7 @@ void Sistema::partida(string dificultad) {
         cout << "Ingrese su accion seguida de las coordenadas de la misma" << endl;
         string userInput;
         cin >> userInput;
+        system("cls");
         Comando accion = verificarAccion(userInput);
 
         if(accion.accion != '!'){
@@ -387,8 +394,8 @@ Comando Sistema::verificarAccion(string input) {
 
     //Ya deberia tener un comando valido, ahora verificar que este dentro del rango del tablero
 
-    if(com.fila > 0 && com.fila < matrizJuego.getFilas()){
-        if(com.columna >0 && com.columna < matrizJuego.getColumnas()){
+    if(com.fila > 0 && com.fila < matrizJuego.getFilas()+1){
+        if(com.columna >0 && com.columna < matrizJuego.getColumnas()+1){
             //Comando Valido, verificar que no sea una accion repetida
             if(matrizJugador.getNode(com.fila,com.columna)->getValue() == 'H'){
                 cout<< "Comando valido: "<< com.accion<<":F"<<com.fila<<":C"<<com.columna<<endl;
